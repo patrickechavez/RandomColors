@@ -2,28 +2,21 @@
 //  ColorDetailViewController.swift
 //  RandomColors
 //
-//  Created by Dorinel Senilong on 12/24/23.
+//  Created by John Patrick Echavez on 12/24/23.
 //
 
 import UIKit
 
 class ColorDetailViewController: UIViewController {
 
+    var color: UIColor?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = color ?? UIColor.systemBackground
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

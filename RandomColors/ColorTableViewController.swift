@@ -2,28 +2,55 @@
 //  ColorTableViewController.swift
 //  RandomColors
 //
-//  Created by Dorinel Senilong on 12/24/23.
+//  Created by John Patrick Echavez on 12/24/23.
 //
 
 import UIKit
 
 class ColorTableViewController: UIViewController {
+    
+    var colors: [UIColor] = [];
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        createRandomColors()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func createRandomColors() {
+        
+        for _ in 0..<50 {
+            colors.append(.randomColor())
+        }
+        
+        print(colors)
     }
-    */
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationViewController = segue.destination as! ColorDetailViewController
+        destinationViewController.color = sender as? UIColor
+        
+    }
+    
 }
+
+extension ColorTableViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return colors.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell       = tableView.dequeueReusableCell(withIdentifier: "ColorCell") else { return UITableViewCell() }
+        let color            = colors[indexPath.row]
+        cell.backgroundColor = color
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let color = colors[indexPath.row]
+        performSegue(withIdentifier: "ToColorDetailViewController", sender: color)
+    }
+}
+
